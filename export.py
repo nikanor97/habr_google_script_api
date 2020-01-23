@@ -44,7 +44,7 @@ def login():
                 creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    cred_path + 'google_test_project.json', SCOPES)
+                    cred_path + 'google_credentials.json', SCOPES)
                 creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open('token.pickle', 'wb') as token:

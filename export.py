@@ -91,6 +91,7 @@ def update_project(service, script_id, form_url):
 
 # Get JSON, which is returned by script
 def get_json(service, script_id, file_name):
+    pprint('Exporting form...')
     body = {
         "function": "main",
         "devMode": True

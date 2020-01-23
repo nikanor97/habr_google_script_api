@@ -31,7 +31,7 @@ MANIFEST = '''
 def login():
     try:
         creds = None
-        cred_path = 'credentials/'
+        cred_path = '../.credentials/'
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
@@ -90,7 +90,7 @@ def update_project(service, script_id, form_url):
 
 
 # Get JSON, which is returned by script
-def get_json(service, script_id):
+def get_json(service, script_id, file_name):
     body = {
         "function": "main",
         "devMode": True
@@ -99,8 +99,10 @@ def get_json(service, script_id):
     resp = service.scripts().run(scriptId=script_id, body=body).execute()
 
     # Write out JSON to file
-    with open('habr_auto.json', 'w', encoding='utf-8') as f:
+    with open(file_name, 'w', encoding='utf-8') as f:
         json.dump(resp['response']['result'], f, ensure_ascii=False, indent=4)
+
+    pprint('Form was successfully exported')
 
 
 def main():
@@ -108,16 +110,18 @@ def main():
     try:
 
         args = sys.argv
-        if len(args) != 3:
-            raise TypeError('Not enough arguments. Two arguments required: <script_id> and <google_form_url>')
-        script_id = args[1]
-        form_url = args[2]
+        if len(args) != 4:
+            raise TypeError('Not enough arguments. Three arguments required: <json_file_name>, <script_id> and '
+                            '<google_form_url>')
+        file_name = args[1]
+        script_id = args[2]
+        form_url = args[3]
 
         service = login()
 
         update_project(service, script_id, form_url)
 
-        get_json(service, script_id)
+        get_json(service, script_id, file_name)
 
     except (errors.HttpError, ) as error:
         # The API encountered a problem.

@@ -31,7 +31,7 @@ MANIFEST = '''
 def login():
     try:
         creds = None
-        cred_path = '../.credentials/'
+        cred_path = 'credentials/'
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.

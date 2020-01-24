@@ -13,7 +13,6 @@ In this case:
 - *script_id* — script id
 - *script_file_name* — name of .gs file, which will be uploaded to google
 
-Для запуска скрипта надо вызвать
 If you want to export form: 
 
 ```python export_form.py <config_file_name> <result_file_name> <script_id> <google_form_url>```
